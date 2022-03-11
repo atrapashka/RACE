@@ -75,8 +75,8 @@
 		975F21B327DA3E43009D953B /* GameScreen */ = {
 			isa = PBXGroup;
 			children = (
-				975F21B127DA3E3F009D953B /* GameScreen.storyboard */,
 				975F21AF27DA3E35009D953B /* GameScreen.swift */,
+				975F21B127DA3E3F009D953B /* GameScreen.storyboard */,
 			);
 			path = GameScreen;
 			sourceTree = "<group>";
