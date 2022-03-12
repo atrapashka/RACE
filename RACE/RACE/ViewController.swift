@@ -21,11 +21,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        
-        
-        blurElementsSettings()
         addBlurView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        blurElementsSettings()
+    }
+    
     @IBAction func onBurnoutButon(_ sender: Any) {
         transitToGameScreen()
     }
