@@ -10,7 +10,7 @@ import UIKit
 class GameScreen: UIViewController {
     
     private var markupCenter: UIView!
-    private var markuoCenterSecond: UIView!
+    private var markupCenterSecond: UIView!
     private var markupLeftSide: UIView!
     private var markupLeftSideSecond: UIView!
     private var markupRightSide: UIView!
@@ -19,19 +19,28 @@ class GameScreen: UIViewController {
     private var centerPosition: CGRect!
     private var informationView: UIView!
     private var informationLabel: UILabel!
+    private var startCarLocation: CGRect!
+    private var startLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .darkGray
-        startLabel()
+        startLabelSettings()
         markupSettings()
         carItemSettings()
         informationViewSettings()
         informationLabelSettings()
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onCar))
+        view.addGestureRecognizer(panGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        startCarLocation = CGRect(x: UIScreen.main.bounds.midX - 70 / 2,
+                                  y: UIScreen.main.bounds.maxY - 130 * 1.5,
+                                  width: 70,
+                                  height: 130)
         let width: CGFloat = 250
         let height: CGFloat = 40
         UIView.animate(withDuration: 0.5, delay: 0.3, options: []) {
@@ -62,6 +71,43 @@ class GameScreen: UIViewController {
         }
     }
     
+    @objc func onCar(gesture: UIPanGestureRecognizer) {
+        let width: CGFloat = 70
+        let height: CGFloat = 130
+        let location = gesture.location(in: view)
+        let x = location.x
+        let y = location.y
+        carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: width, height: height)
+        
+        UIView.animate(withDuration: 1, delay: 0, options: []) {
+            self.startLabel.frame = CGRect(x: UIScreen.main.bounds.midX - 400 / 2,
+                                           y: UIScreen.main.bounds.midY + 1000,
+                                           width: 400,
+                                           height: 45)
+        }
+        
+        UIView.animate(withDuration: 1.5, delay: 0, options: []) {
+            self.informationView.frame = CGRect(x: UIScreen.main.bounds.midX - 250 / 2,
+                                           y: UIScreen.main.bounds.midY + 1000,
+                                           width: 250,
+                                           height: 40)
+        }
+        
+        UIView.animate(withDuration: 1, delay: 0, options: []) {
+            self.markupCenter.frame = CGRect(x: UIScreen.main.bounds.midX - 10 / 2,
+                                             y: UIScreen.main.bounds.maxY + 300,
+                                             width: 10,
+                                             height: 500)
+        }
+        
+        UIView.animate(withDuration: 1.5, delay: 0.5, options: [.repeat]) {
+            self.markupCenterSecond.frame = CGRect(x: UIScreen.main.bounds.midX - 10 / 2,
+                                                   y: UIScreen.main.bounds.maxY + 600,
+                                                   width: 10,
+                                                   height: 500 * 2)
+        }
+    }
+    
     private func markupSettings() {
         let width: CGFloat = 10
         let height: CGFloat = 500
@@ -70,8 +116,15 @@ class GameScreen: UIViewController {
         markupCenter.backgroundColor = .white
         markupCenter.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2,
                                     y: UIScreen.main.bounds.midY - height / 1.5,
-                              width: width,
-                              height: height)
+                                    width: width,
+                                    height: height)
+        
+        markupCenterSecond = UIView()
+        markupCenterSecond.backgroundColor = .white
+        markupCenterSecond.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2,
+                                          y: UIScreen.main.bounds.minY - height * 2,
+                                          width: width,
+                                          height: height * 2)
         
         markupLeftSide = UIView()
         markupLeftSide.backgroundColor = .white
@@ -83,13 +136,14 @@ class GameScreen: UIViewController {
         markupRightSide = UIView()
         markupRightSide.backgroundColor = .white
         markupRightSide.frame = CGRect(x: UIScreen.main.bounds.maxX - width * 1.5,
-                                      y: UIScreen.main.bounds.minY,
-                                      width: width,
-                                      height: UIScreen.main.bounds.height)
+                                       y: UIScreen.main.bounds.minY,
+                                       width: width,
+                                       height: UIScreen.main.bounds.height)
         
         view.addSubview(markupLeftSide)
         view.addSubview(markupRightSide)
         view.addSubview(markupCenter)
+        view.addSubview(markupCenterSecond)
     }
     
     private func carItemSettings() {
@@ -135,10 +189,11 @@ class GameScreen: UIViewController {
         informationView.addSubview(informationLabel)
     }
     
-    private func startLabel() {
+    private func startLabelSettings() {
         var width: CGFloat = 400
         var height: CGFloat = 45
-        let startLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.midX - width / 2,
+        startLabel = UILabel()
+        startLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.midX - width / 2,
                                                y: UIScreen.main.bounds.midY + height * 4,
                                                width: width,
                                                height: height))
