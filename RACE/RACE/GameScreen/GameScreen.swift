@@ -79,7 +79,7 @@ class GameScreen: UIViewController {
         let y = location.y
         carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: width, height: height)
         
-        UIView.animate(withDuration: 1, delay: 0, options: []) {
+        UIView.animate(withDuration: 0.8, delay: 0, options: []) {
             self.startLabel.frame = CGRect(x: UIScreen.main.bounds.midX - 400 / 2,
                                            y: UIScreen.main.bounds.midY + 1000,
                                            width: 400,
@@ -100,45 +100,30 @@ class GameScreen: UIViewController {
                                              height: 500)
         }
         
-        UIView.animate(withDuration: 1.5, delay: 0.5, options: [.repeat]) {
+        UIView.animate(withDuration: 1.3, delay: 0.5, options: [.repeat]) {
             self.markupCenterSecond.frame = CGRect(x: UIScreen.main.bounds.midX - 10 / 2,
-                                                   y: UIScreen.main.bounds.maxY + 600,
+                                                   y: UIScreen.main.bounds.maxY + 800,
                                                    width: 10,
                                                    height: 500 * 2)
         }
     }
     
     private func markupSettings() {
-        let width: CGFloat = 10
-        let height: CGFloat = 500
-        
         markupCenter = UIView()
         markupCenter.backgroundColor = .white
-        markupCenter.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2,
-                                    y: UIScreen.main.bounds.midY - height / 1.5,
-                                    width: width,
-                                    height: height)
+        markupCenter.frame = locations(position: "center")
         
         markupCenterSecond = UIView()
         markupCenterSecond.backgroundColor = .white
-        markupCenterSecond.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2,
-                                          y: UIScreen.main.bounds.minY - height * 2,
-                                          width: width,
-                                          height: height * 2)
+        markupCenterSecond.frame = locations(position: "center2")
         
         markupLeftSide = UIView()
         markupLeftSide.backgroundColor = .white
-        markupLeftSide.frame = CGRect(x: UIScreen.main.bounds.minX + width / 2,
-                                      y: UIScreen.main.bounds.minY,
-                                      width: width,
-                                      height: UIScreen.main.bounds.height)
+        markupLeftSide.frame = locations(position: "left")
         
         markupRightSide = UIView()
         markupRightSide.backgroundColor = .white
-        markupRightSide.frame = CGRect(x: UIScreen.main.bounds.maxX - width * 1.5,
-                                       y: UIScreen.main.bounds.minY,
-                                       width: width,
-                                       height: UIScreen.main.bounds.height)
+        markupRightSide.frame = locations(position: "right")
         
         view.addSubview(markupLeftSide)
         view.addSubview(markupRightSide)
@@ -147,42 +132,33 @@ class GameScreen: UIViewController {
     }
     
     private func carItemSettings() {
-        let width: CGFloat = 70
-        let height: CGFloat = 130
         carItem = UIImageView()
         carItem.image = UIImage(named: "car1")
         carItem.contentMode = .scaleAspectFit
-        carItem.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2, y: UIScreen.main.bounds.maxY - height * 1.5, width: width, height: height)
+        carItem.frame = locations(position: "car")
         view.addSubview(carItem)
     }
     
     private func informationViewSettings() {
-        let width: CGFloat = 250
-        let height: CGFloat = 40
         informationView = UIView()
-        informationView.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2,
-                                       y: UIScreen.main.bounds.midY - height,
-                                       width: width,
-                                       height: height)
-        informationView.layer.cornerRadius = height / 2
+        informationView.frame = locations(position: "infoView")
+        informationView.layer.cornerRadius = 40 / 2
         informationView.backgroundColor = .white
         view.addSubview(informationView)
     }
     
     private func informationLabelSettings() {
-        let width: CGFloat = 200
-        let height: CGFloat = 50
+        let informationLabelWidth: CGFloat = 200
+        let informationLabelHeight: CGFloat = 50
         let firstText = "← MOVE CAR TO →"
-        
         let attributesMain: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
                                                          .foregroundColor: UIColor.systemGray,
                                                          .font: UIFont.systemFont(ofSize: 22,
                                                                                   weight: .light)]
-        centerPosition = CGRect(x: informationView.bounds.midX - width / 2,
-                                y: informationView.bounds.midY - height / 2,
-                                width: width,
-                                height: height)
-        informationLabel = UILabel(frame: centerPosition)
+        informationLabel = UILabel(frame: CGRect(x: informationView.bounds.midX - informationLabelWidth / 2,
+                                                 y: informationView.bounds.midY - informationLabelHeight / 2,
+                                                 width: informationLabelWidth,
+                                                 height: informationLabelHeight))
         informationLabel.attributedText = NSMutableAttributedString(string: firstText,
                                                                 attributes: attributesMain)
         informationLabel.textAlignment = .center
@@ -190,8 +166,8 @@ class GameScreen: UIViewController {
     }
     
     private func startLabelSettings() {
-        var width: CGFloat = 400
-        var height: CGFloat = 45
+        let width: CGFloat = 400
+        let height: CGFloat = 45
         startLabel = UILabel()
         startLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.midX - width / 2,
                                                y: UIScreen.main.bounds.midY + height * 4,
@@ -206,5 +182,56 @@ class GameScreen: UIViewController {
                                                               attributes: attributesStart)
         startLabel.textAlignment = .center
         view.addSubview(startLabel)
+    }
+    
+    private func locations(position: String) -> CGRect {
+        var result: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let markupWidth: CGFloat = 10
+        let markupHeight: CGFloat = 500
+        let carWidth: CGFloat = 70
+        let carHeight: CGFloat = 130
+        let informationViewWidth: CGFloat = 250
+        let informationViewHeight: CGFloat = 40
+        let startLabelWidth: CGFloat = 400
+        let startLabelHeight: CGFloat = 45
+        
+        let markupCenterLocation = CGRect(x: UIScreen.main.bounds.midX - markupWidth / 2,
+                                          y: UIScreen.main.bounds.midY - markupHeight / 1.5,
+                                          width: markupWidth,
+                                          height: markupHeight)
+        let markupCenterSecondLoaction = CGRect(x: UIScreen.main.bounds.midX - markupWidth / 2,
+                                                y: UIScreen.main.bounds.minY - markupHeight * 2.5,
+                                                width: markupWidth,
+                                                height: markupHeight * 2)
+        let markupLeftLoaction = CGRect(x: UIScreen.main.bounds.minX + markupWidth / 2,
+                                        y: UIScreen.main.bounds.minY,
+                                        width: markupWidth,
+                                        height: UIScreen.main.bounds.height)
+        let markupRightLocation = CGRect(x: UIScreen.main.bounds.maxX - markupWidth * 1.5,
+                                         y: UIScreen.main.bounds.minY,
+                                         width: markupWidth,
+                                         height: UIScreen.main.bounds.height)
+        let carLocation = CGRect(x: UIScreen.main.bounds.midX - carWidth / 2,
+                                 y: UIScreen.main.bounds.maxY - carHeight * 1.5,
+                                 width: carWidth,
+                                 height: carHeight)
+        let informationViewLocation = CGRect(x: UIScreen.main.bounds.midX - informationViewWidth / 2,
+                                             y: UIScreen.main.bounds.midY - informationViewHeight,
+                                             width: informationViewWidth,
+                                             height: informationViewHeight)
+        let startLabelLocation = CGRect(x: UIScreen.main.bounds.midX - startLabelWidth / 2,
+                                        y: UIScreen.main.bounds.midY + startLabelHeight * 4,
+                                        width: startLabelWidth,
+                                        height: startLabelHeight)
+        
+        result = position == "center" ? markupCenterLocation
+        : position == "center2" ? markupCenterSecondLoaction
+        : position == "left" ? markupLeftLoaction
+        : position == "right" ? markupRightLocation
+        : position == "car" ? carLocation
+        : position == "infoView" ? informationViewLocation
+        : startLabelLocation
+        
+        return result
     }
 }
