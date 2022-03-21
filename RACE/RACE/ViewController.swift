@@ -7,8 +7,7 @@
 
 import UIKit
 
-private var width: CGFloat = 500
-private var height: CGFloat = 500
+
 
 class ViewController: UIViewController {
     @IBOutlet weak var blurView: UIView!
@@ -21,6 +20,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+//        title = "Swipe to choose your car ->"
+//        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white,
+//                                                                   .font: UIFont.systemFont(ofSize: 20,
+//                                                                                            weight: .light)]
+        let buttonBurger = UIButton()
+        buttonBurger.addTarget(self, action: #selector(onBurger), for: .touchUpInside)
+        buttonBurger.setImage(UIImage(named: "burgerButton"), for: .normal)
+        buttonBurger.bounds.size = CGSize(width: 1, height: 1)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonBurger)
+        
         addBlurView()
     }
     
@@ -32,54 +41,90 @@ class ViewController: UIViewController {
         transitToGameScreen()
     }
     
+    @objc private func onBurger() {
+        
+    }
+    
     private func blurElementsSettings() {
-        blurView.frame = CGRect(x: UIScreen.main.bounds.midX - width,
-                                y: UIScreen.main.bounds.midY - height * 1.5,
-                                width: width,
-                                height: height)
-        blurView.layer.cornerRadius = width / 2
+        cornerRadius()
+        
+        blurView.frame = locations(position: "blur")
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurView.frame = CGRect(x: UIScreen.main.bounds.midX + width / 4,
-                                         y: UIScreen.main.bounds.midY - height * 1.5,
-                                         width: width,
-                                         height: height)
+            self.blurView.frame = self.locations(position: "blurAnimation")
         }
         
-        blurViewSecond.frame = CGRect(x: UIScreen.main.bounds.midX + width / 4,
-                                      y: UIScreen.main.bounds.midY - height,
-                                      width: width,
-                                      height: height)
-        blurViewSecond.layer.cornerRadius = width / 2
+        blurViewSecond.frame = locations(position: "blurSecond")
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewSecond.frame = CGRect(x: UIScreen.main.bounds.midX - width,
-                                               y: UIScreen.main.bounds.midY - height,
-                                               width: width,
-                                               height: height)
+            self.blurViewSecond.frame = self.locations(position: "blurSecondAnimation")
         }
         
-        blurViewThird.frame = CGRect(x: UIScreen.main.bounds.midX - width,
-                                     y: UIScreen.main.bounds.midY - height / 2,
-                                      width: width,
-                                      height: height)
-        blurViewThird.layer.cornerRadius = width / 2
+        blurViewThird.frame = locations(position: "blurThird")
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewThird.frame = CGRect(x: UIScreen.main.bounds.midX + width / 4,
-                                              y: UIScreen.main.bounds.midY - height / 2,
-                                               width: width,
-                                               height: height)
+            self.blurViewThird.frame = self.locations(position: "blurThirdAnimation")
         }
         
-        blurViewFourth.frame = CGRect(x: UIScreen.main.bounds.midX + width / 4,
-                                      y: UIScreen.main.bounds.midY,
+        blurViewFourth.frame = locations(position: "blurFourth")
+        UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
+            self.blurViewFourth.frame = self.locations(position: "blurFourthAnimation")
+        }
+    }
+    
+    private func locations (position: String) -> CGRect {
+        var result: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+        let width: CGFloat = 500
+        let height: CGFloat = 500
+        
+        let blurViewLocation = CGRect(x: view.bounds.midX - width,
+                                      y: view.bounds.midY - height * 1.5,
                                       width: width,
                                       height: height)
-        blurViewFourth.layer.cornerRadius = width / 2
-        UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewFourth.frame = CGRect(x: UIScreen.main.bounds.midX - width,
-                                               y: UIScreen.main.bounds.midY,
-                                               width: width,
-                                               height: height)
-        }
+        let blurViewAnimation = CGRect(x: view.bounds.midX + width / 4,
+                                       y: view.bounds.midY - height * 1.5,
+                                       width: width,
+                                       height: height)
+        let blurViewSecondLocation = CGRect(x: view.bounds.midX + width / 4,
+                                            y: view.bounds.midY - height,
+                                            width: width,
+                                            height: height)
+        let blurViewSecondAnimation = CGRect(x: view.bounds.midX - width,
+                                             y: view.bounds.midY - height,
+                                             width: width,
+                                             height: height)
+        let blurViewThirdLocation = CGRect(x: view.bounds.midX - width,
+                                           y: view.bounds.midY - height / 2,
+                                            width: width,
+                                            height: height)
+        let blurViewThirdAnimation = CGRect(x: view.bounds.midX + width / 4,
+                                            y: view.bounds.midY - height / 2,
+                                             width: width,
+                                             height: height)
+        let blurViewFourthLocation = CGRect(x: view.bounds.midX + width / 4,
+                                            y: UIScreen.main.bounds.midY,
+                                            width: width,
+                                            height: height)
+        let blurViewFourthAnimation = CGRect(x: view.bounds.midX - width,
+                                             y: view.bounds.midY,
+                                             width: width,
+                                             height: height)
+        
+        result = position == "blur" ? blurViewLocation
+        : position == "blurAnimation" ? blurViewAnimation
+        : position == "blurSecond" ? blurViewSecondLocation
+        : position == "blurSecondAnimation" ? blurViewSecondAnimation
+        : position == "blurThird" ? blurViewThirdLocation
+        : position == "blurThirdAnimation" ? blurViewThirdAnimation
+        : position == "blurFourth" ? blurViewFourthLocation
+        : blurViewFourthAnimation
+        
+        return result
+    }
+    
+    private func cornerRadius() {
+        let radius: CGFloat = 250
+        blurView.applyCornerRadius(radius: radius)
+        blurViewSecond.applyCornerRadius(radius: radius)
+        blurViewThird.applyCornerRadius(radius: radius)
+        blurViewFourth.applyCornerRadius(radius: radius)
     }
     
     private func addBlurView() {

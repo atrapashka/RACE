@@ -37,23 +37,11 @@ class GameScreen: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        startCarLocation = CGRect(x: UIScreen.main.bounds.midX - 70 / 2,
-                                  y: UIScreen.main.bounds.maxY - 130 * 1.5,
-                                  width: 70,
-                                  height: 130)
-        let width: CGFloat = 250
-        let height: CGFloat = 40
         UIView.animate(withDuration: 0.5, delay: 0.3, options: []) {
-            self.informationView.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2 - 20,
-                                         y: UIScreen.main.bounds.midY - height,
-                                         width: width,
-                                         height: height)
+            self.informationView.frame = self.locations(position: "infoAnimation1")
         } completion: { _ in
             UIView.animate(withDuration: 1, delay: 0, options: [.repeat, .autoreverse]) {
-                self.informationView.frame = CGRect(x: UIScreen.main.bounds.midX - width / 2 + 20,
-                                             y: UIScreen.main.bounds.midY - height,
-                                             width: width,
-                                             height: height)
+                self.informationView.frame = self.locations(position: "infoAnimation2")
            }
         }
         
@@ -80,34 +68,23 @@ class GameScreen: UIViewController {
         carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: width, height: height)
         
         UIView.animate(withDuration: 0.8, delay: 0, options: []) {
-            self.startLabel.frame = CGRect(x: UIScreen.main.bounds.midX - 400 / 2,
-                                           y: UIScreen.main.bounds.midY + 1000,
-                                           width: 400,
-                                           height: 45)
+            self.startLabel.frame = self.locations(position: "startAnimation")
         }
         
         UIView.animate(withDuration: 1.5, delay: 0, options: []) {
-            self.informationView.frame = CGRect(x: UIScreen.main.bounds.midX - 250 / 2,
-                                           y: UIScreen.main.bounds.midY + 1000,
-                                           width: 250,
-                                           height: 40)
+            self.informationView.frame = self.locations(position: "infoAnimation3")
         }
         
         UIView.animate(withDuration: 1, delay: 0, options: []) {
-            self.markupCenter.frame = CGRect(x: UIScreen.main.bounds.midX - 10 / 2,
-                                             y: UIScreen.main.bounds.maxY + 300,
-                                             width: 10,
-                                             height: 500)
+            self.markupCenter.frame = self.locations(position: "centerAnimation")
         }
         
         UIView.animate(withDuration: 1.3, delay: 0.5, options: [.repeat]) {
-            self.markupCenterSecond.frame = CGRect(x: UIScreen.main.bounds.midX - 10 / 2,
-                                                   y: UIScreen.main.bounds.maxY + 800,
-                                                   width: 10,
-                                                   height: 500 * 2)
+            self.markupCenterSecond.frame = self.locations(position: "centerSecondAnimation")
         }
     }
-    
+    //MARK: - Private Functions
+    //MARK: -
     private func markupSettings() {
         markupCenter = UIView()
         markupCenter.backgroundColor = .white
@@ -142,7 +119,7 @@ class GameScreen: UIViewController {
     private func informationViewSettings() {
         informationView = UIView()
         informationView.frame = locations(position: "infoView")
-        informationView.layer.cornerRadius = 40 / 2
+        informationView.applyCornerRadius(radius: 20)
         informationView.backgroundColor = .white
         view.addSubview(informationView)
     }
@@ -166,21 +143,16 @@ class GameScreen: UIViewController {
     }
     
     private func startLabelSettings() {
-        let width: CGFloat = 400
-        let height: CGFloat = 45
         startLabel = UILabel()
-        startLabel = UILabel(frame: CGRect(x: UIScreen.main.bounds.midX - width / 2,
-                                               y: UIScreen.main.bounds.midY + height * 4,
-                                               width: width,
-                                               height: height))
+        startLabel = UILabel(frame: locations(position: "start"))
+        startLabel.backgroundColor = .white
+        startLabel.textAlignment = .center
         let attributesStart: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
-                                                         .foregroundColor: UIColor.systemGray,
+                                                              .foregroundColor: UIColor.systemGray,
                                                               .font: UIFont.systemFont(ofSize: 40,
                                                                                        weight: .light)]
-        startLabel.backgroundColor = .white
         startLabel.attributedText = NSMutableAttributedString(string: "S    T    A    R    T",
                                                               attributes: attributesStart)
-        startLabel.textAlignment = .center
         view.addSubview(startLabel)
     }
     
@@ -223,6 +195,30 @@ class GameScreen: UIViewController {
                                         y: UIScreen.main.bounds.midY + startLabelHeight * 4,
                                         width: startLabelWidth,
                                         height: startLabelHeight)
+        let informationViewAnimation1 = CGRect(x: UIScreen.main.bounds.midX - informationViewWidth / 2 - 20,
+                                              y: UIScreen.main.bounds.midY - informationViewHeight,
+                                              width: informationViewWidth,
+                                              height: informationViewHeight)
+        let informationViewAnimation2 = CGRect(x: UIScreen.main.bounds.midX - informationViewWidth / 2 + 20,
+                                               y: UIScreen.main.bounds.midY - informationViewHeight,
+                                               width: informationViewWidth,
+                                               height: informationViewHeight)
+        let informationViewAnimation3 = CGRect(x: UIScreen.main.bounds.midX - informationViewWidth / 2,
+                                               y: UIScreen.main.bounds.midY + informationViewHeight * 25,
+                                               width: informationViewWidth,
+                                               height: informationViewHeight)
+        let startLabelAnimation = CGRect(x: UIScreen.main.bounds.midX - startLabelWidth / 2,
+                                         y: UIScreen.main.bounds.midY + startLabelHeight * 22,
+                                         width: startLabelWidth,
+                                         height: startLabelHeight)
+        let markupCenterAnimation = CGRect(x: UIScreen.main.bounds.midX - markupWidth / 2,
+                                           y: UIScreen.main.bounds.maxY + markupHeight * 0.6,
+                                           width: markupWidth,
+                                           height: markupHeight)
+        let markupCenterSecondAnimation = CGRect(x: UIScreen.main.bounds.midX - markupWidth / 2,
+                                                 y: UIScreen.main.bounds.maxY + markupHeight * 1.6,
+                                                 width: markupWidth,
+                                                 height: markupHeight * 2)
         
         result = position == "center" ? markupCenterLocation
         : position == "center2" ? markupCenterSecondLoaction
@@ -230,7 +226,13 @@ class GameScreen: UIViewController {
         : position == "right" ? markupRightLocation
         : position == "car" ? carLocation
         : position == "infoView" ? informationViewLocation
-        : startLabelLocation
+        : position == "start" ? startLabelLocation
+        : position == "infoAnimation1" ? informationViewAnimation1
+        : position == "infoAnimation2" ? informationViewAnimation2
+        : position == "infoAnimation3" ? informationViewAnimation3
+        : position == "startAnimation" ? startLabelAnimation
+        : position == "centerAnimation" ? markupCenterAnimation
+        : markupCenterSecondAnimation
         
         return result
     }
