@@ -15,22 +15,35 @@ class ViewController: UIViewController {
     @IBOutlet weak var blurViewThird: UIView!
     @IBOutlet weak var blurViewFourth: UIView!
     @IBOutlet weak var mainBlurView: UIImageView!
+    private var simpleCar: UIButton!
+    private var miniCar: UIButton!
+    private var sportCar: UIButton!
+    private var blackCar: UIButton!
+    private var menuView: UIView!
+    private var buttonBurger: UIButton!
+    var carModel: String = "car1"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-//        title = "Swipe to choose your car ->"
-//        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white,
-//                                                                   .font: UIFont.systemFont(ofSize: 20,
-//                                                                                            weight: .light)]
-        let buttonBurger = UIButton()
+        buttonBurger = UIButton()
         buttonBurger.addTarget(self, action: #selector(onBurger), for: .touchUpInside)
         buttonBurger.setImage(UIImage(named: "burgerButton"), for: .normal)
-        buttonBurger.bounds.size = CGSize(width: 1, height: 1)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonBurger)
         
+        let swipeRightGestureRecognizer = UISwipeGestureRecognizer(target: self,
+                                                                   action: #selector(onSwipeRight))
+        swipeRightGestureRecognizer.direction = .right
+        
+        let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self,
+                                                                  action: #selector(onSwipeLeft))
+        swipeLeftGestureRecognizer.direction = .left
+        
         addBlurView()
+        menuViewSettings()
+        view.addGestureRecognizer(swipeRightGestureRecognizer)
+        view.addGestureRecognizer(swipeLeftGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,8 +54,94 @@ class ViewController: UIViewController {
         transitToGameScreen()
     }
     
+    @objc private func onSwipeRight() {
+        print("right")
+        if menuView.frame == locations(position: "menu") {
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.menuView.frame = self.locations(position: "menuOpen")
+            }
+        } else {
+            menuView.frame = locations(position: "menuOpen")
+        }
+    }
+    
+    @objc private func onSwipeLeft() {
+        print("left")
+        if menuView.frame == locations(position: "menuOpen") {
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.menuView.frame = self.locations(position: "menu")
+            }
+        } else {
+            menuView.frame = locations(position: "menu")
+        }
+    }
+    
     @objc private func onBurger() {
+        if menuView.frame == locations(position: "menu") {
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.menuView.frame = self.locations(position: "menuOpen")
+            }
+        } else {
+            UIView.animate(withDuration: 0.3, delay: 0) {
+                self.menuView.frame = self.locations(position: "menu")
+            }
+        }
+    }
+    
+    @objc private func onSimpleCar() {
+        carModel = "car1"
+    }
+    
+    @objc private func onSportCar() {
+        carModel = "car4"
+    }
+    
+    @objc private func onMiniCar() {
+        carModel = "car2"
+    }
+    
+    @objc private func onBlackCar() {
+        carModel = "car3"
+    }
+    
+    private func menuViewSettings() {
+        menuView = UIView()
+        menuView.frame = locations(position: "menu")
+        view.addSubview(menuView)
         
+        buttonsOnMenuViewSettings()
+    }
+    
+    private func buttonsOnMenuViewSettings() {
+        let carWidth: CGFloat = 70
+        let carHeight: CGFloat = 130
+        
+        simpleCar = UIButton()
+        simpleCar.addTarget(self, action: #selector(onSimpleCar), for: .touchUpInside)
+        simpleCar.setImage(UIImage(named: "car1"), for: .normal)
+        simpleCar.frame = CGRect(x: menuView.bounds.midX - carWidth / 2,
+                                 y: menuView.bounds.minY + carHeight,
+                                 width: carWidth,
+                                 height: carHeight)
+        
+        sportCar = UIButton()
+        sportCar.addTarget(self, action: #selector(onSportCar), for: .touchUpInside)
+        sportCar.setImage(UIImage(named: "car4"), for: .normal)
+        sportCar.frame = simpleCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
+        
+        miniCar = UIButton()
+        miniCar.addTarget(self, action: #selector(onMiniCar), for: .touchUpInside)
+        miniCar.setImage(UIImage(named: "car2"), for: .normal)
+        miniCar.frame = sportCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
+        
+        blackCar = UIButton()
+        blackCar.addTarget(self, action: #selector(onBlackCar), for: .touchUpInside)
+        blackCar.setImage(UIImage(named: "car3"), for: .normal)
+        blackCar.frame = miniCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
+        menuView.addSubview(simpleCar)
+        menuView.addSubview(miniCar)
+        menuView.addSubview(blackCar)
+        menuView.addSubview(sportCar)
     }
     
     private func blurElementsSettings() {
@@ -73,6 +172,9 @@ class ViewController: UIViewController {
         var result: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
         let width: CGFloat = 500
         let height: CGFloat = 500
+        let menuWidth: CGFloat = view.bounds.width / 4.5
+        let menuHeight: CGFloat = view.bounds.height
+        
         
         let blurViewLocation = CGRect(x: view.bounds.midX - width,
                                       y: view.bounds.midY - height * 1.5,
@@ -106,6 +208,14 @@ class ViewController: UIViewController {
                                              y: view.bounds.midY,
                                              width: width,
                                              height: height)
+        let menu = CGRect(x: view.bounds.minY - menuWidth,
+                          y: view.bounds.minX,
+                          width: menuWidth,
+                          height: menuHeight)
+        let menuOpen = CGRect(x: view.bounds.minY,
+                              y: view.bounds.minX,
+                              width: menuWidth,
+                              height: menuHeight)
         
         result = position == "blur" ? blurViewLocation
         : position == "blurAnimation" ? blurViewAnimation
@@ -114,7 +224,9 @@ class ViewController: UIViewController {
         : position == "blurThird" ? blurViewThirdLocation
         : position == "blurThirdAnimation" ? blurViewThirdAnimation
         : position == "blurFourth" ? blurViewFourthLocation
-        : blurViewFourthAnimation
+        : position == "blurFourthAnimation" ? blurViewFourthAnimation
+        : position == "menu" ? menu
+        : menuOpen
         
         return result
     }
@@ -139,6 +251,8 @@ class ViewController: UIViewController {
         let storyboard = UIStoryboard.init(name: "GameScreen", bundle: Bundle.main)
         let vc = storyboard.instantiateInitialViewController() as! GameScreen
         navigationController?.pushViewController(vc, animated: true)
+
+        vc.carData = carModel
     }
 }
 

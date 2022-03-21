@@ -21,10 +21,10 @@ class GameScreen: UIViewController {
     private var informationLabel: UILabel!
     private var startCarLocation: CGRect!
     private var startLabel: UILabel!
+    var carData: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .darkGray
         startLabelSettings()
         markupSettings()
@@ -110,7 +110,7 @@ class GameScreen: UIViewController {
     
     private func carItemSettings() {
         carItem = UIImageView()
-        carItem.image = UIImage(named: "car1")
+        carItem.image = UIImage(named: carData)
         carItem.contentMode = .scaleAspectFit
         carItem.frame = locations(position: "car")
         view.addSubview(carItem)
