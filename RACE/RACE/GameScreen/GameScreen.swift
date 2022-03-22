@@ -16,11 +16,13 @@ class GameScreen: UIViewController {
     private var markupRightSide: UIView!
     private var markupRightSideSecond: UIView!
     private var carItem: UIImageView!
+    private var crash: UIImageView!
     private var centerPosition: CGRect!
     private var informationView: UIView!
     private var informationLabel: UILabel!
     private var startCarLocation: CGRect!
     private var startLabel: UILabel!
+    private var panGestureRecognizer: UIPanGestureRecognizer!
     var carData: String = ""
 
     override func viewDidLoad() {
@@ -31,9 +33,10 @@ class GameScreen: UIViewController {
         carItemSettings()
         informationViewSettings()
         informationLabelSettings()
-        
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onCar))
+        panGestureRecognizer = UIPanGestureRecognizer()
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(onCar))
         view.addGestureRecognizer(panGestureRecognizer)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,6 +70,9 @@ class GameScreen: UIViewController {
         let y = location.y
         carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: width, height: height)
         
+//        let position = markupCenterSecond.layer.presentation()!.frame
+//        print(position)
+        
         UIView.animate(withDuration: 0.8, delay: 0, options: []) {
             self.startLabel.frame = self.locations(position: "startAnimation")
         }
@@ -82,6 +88,28 @@ class GameScreen: UIViewController {
         UIView.animate(withDuration: 1.3, delay: 0.5, options: [.repeat]) {
             self.markupCenterSecond.frame = self.locations(position: "centerSecondAnimation")
         }
+        if carItem.frame.intersects(markupLeftSide.frame)
+        || carItem.frame.intersects(markupRightSide.frame)
+        || carItem.frame.intersects(markupCenterSecond.layer.presentation()!.frame) {
+            UIView.animate(withDuration: 0.1, delay: 0, options: []) {
+                self.crash.frame = CGRect(x: self.view.bounds.midX - 200, y: self.view.bounds.midX, width: 400, height: 300)
+            }
+            self.startLabel.frame = self.locations(position: "start")
+            self.startLabel.backgroundColor = .red
+            let attributesStart: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
+                                                                  .foregroundColor: UIColor.white,
+                                                                  .font: UIFont.systemFont(ofSize: 40,
+                                                                                           weight: .bold)]
+            self.startLabel.attributedText = NSMutableAttributedString(string: "Y O U   L O O S E !",
+                                                                  attributes: attributesStart)
+            view.removeGestureRecognizer(panGestureRecognizer)
+        }
+//            print("left contact")
+//        } else if carItem.frame.intersects(markupRightSide.frame) {
+//            print("right contact")
+//        } else if carItem.frame.intersects(markupCenterSecond.layer.presentation()!.frame) {
+//            print("BEBRA")
+//        }
     }
     //MARK: - Private Functions
     //MARK: -
@@ -114,6 +142,12 @@ class GameScreen: UIViewController {
         carItem.contentMode = .scaleAspectFit
         carItem.frame = locations(position: "car")
         view.addSubview(carItem)
+        
+        crash = UIImageView()
+        crash.image = UIImage(named: "crash")
+        crash.contentMode = .scaleAspectFit
+        crash.frame = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+        view.addSubview(crash)
     }
     
     private func informationViewSettings() {

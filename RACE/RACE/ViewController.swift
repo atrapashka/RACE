@@ -55,7 +55,6 @@ class ViewController: UIViewController {
     }
     
     @objc private func onSwipeRight() {
-        print("right")
         if menuView.frame == locations(position: "menu") {
             UIView.animate(withDuration: 0.3, delay: 0) {
                 self.menuView.frame = self.locations(position: "menuOpen")
@@ -66,7 +65,6 @@ class ViewController: UIViewController {
     }
     
     @objc private func onSwipeLeft() {
-        print("left")
         if menuView.frame == locations(position: "menuOpen") {
             UIView.animate(withDuration: 0.3, delay: 0) {
                 self.menuView.frame = self.locations(position: "menu")
