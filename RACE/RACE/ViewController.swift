@@ -1,26 +1,19 @@
-//
-//  ViewController.swift
-//  RACE
-//
-//  Created by Alehandro on 10.03.22.
-//
 
 import UIKit
-
-
 
 class ViewController: UIViewController {
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var blurViewSecond: UIView!
     @IBOutlet weak var blurViewThird: UIView!
     @IBOutlet weak var blurViewFourth: UIView!
+    private var menuView: UIView!
     @IBOutlet weak var mainBlurView: UIImageView!
     private var simpleCar: UIButton!
     private var miniCar: UIButton!
     private var sportCar: UIButton!
     private var blackCar: UIButton!
-    private var menuView: UIView!
     private var buttonBurger: UIButton!
+    private var carArray: [UIButton]!
     var carModel: String = "car1"
     
     override func viewDidLoad() {
@@ -115,6 +108,18 @@ class ViewController: UIViewController {
         let carHeight: CGFloat = 130
         
         simpleCar = UIButton()
+        sportCar = UIButton()
+        miniCar = UIButton()
+        blackCar = UIButton()
+        
+//        carArray = [simpleCar, miniCar, blackCar, sportCar]
+//        
+//        let elements = carArray.count - 1
+//        for i in 0...elements {
+//            carArray[i].setImage(UIImage(named: "car\(i)"), for: .normal)
+//            carArray[i].frame = i == 0 ?
+//        }
+        
         simpleCar.addTarget(self, action: #selector(onSimpleCar), for: .touchUpInside)
         simpleCar.setImage(UIImage(named: "car1"), for: .normal)
         simpleCar.frame = CGRect(x: menuView.bounds.midX - carWidth / 2,
@@ -122,17 +127,14 @@ class ViewController: UIViewController {
                                  width: carWidth,
                                  height: carHeight)
         
-        sportCar = UIButton()
         sportCar.addTarget(self, action: #selector(onSportCar), for: .touchUpInside)
         sportCar.setImage(UIImage(named: "car4"), for: .normal)
         sportCar.frame = simpleCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
         
-        miniCar = UIButton()
         miniCar.addTarget(self, action: #selector(onMiniCar), for: .touchUpInside)
         miniCar.setImage(UIImage(named: "car2"), for: .normal)
         miniCar.frame = sportCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
         
-        blackCar = UIButton()
         blackCar.addTarget(self, action: #selector(onBlackCar), for: .touchUpInside)
         blackCar.setImage(UIImage(named: "car3"), for: .normal)
         blackCar.frame = miniCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
