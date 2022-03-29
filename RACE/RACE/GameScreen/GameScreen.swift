@@ -7,12 +7,16 @@ class GameScreen: UIViewController {
     private var markupLeftSide: UIView!
     private var markupRightSide: UIView!
     private var infoView: UIView!
+    private var markupViewArray: [UIView]!
     private var infoLabel: UILabel!
     private var startLabel: UILabel!
     private var carItem: UIImageView!
     private var crash: UIImageView!
-    private var obstacleArray: [UIImageView]!
-    private var markupViewArray: [UIView]!
+    private var leftObstacleView: UIImageView!
+    private var centerObstacleView: UIImageView!
+    private var rightObstacleView: UIImageView!
+    private var obstacleViewArray: [UIImageView]!
+    private var obstacleArray: [UIImage]!
     private var centerPosition: CGRect!
     private var startCarLocation: CGRect!
     private var panGestureRecognizer: UIPanGestureRecognizer!
@@ -20,10 +24,12 @@ class GameScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .darkGray
+        let timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        view.backgroundColor = .systemGray
         startLabelSettings()
         markupSettings()
         carItemSettings()
+        obstaclesSettings()
         infoViewSettings()
         infoLabelSettings()
         panGestureRecognizer = UIPanGestureRecognizer()
@@ -53,6 +59,21 @@ class GameScreen: UIViewController {
         }
     }
     
+    @objc func fireTimer() {
+        if leftObstacleView.layer.presentation()!.frame.maxY > view.bounds.midY * 2.5  {
+            leftObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+            leftObstacleView.frame = PointManager.shared.updateLeftObstacleViewRandomPoint(view: view)
+        }
+        if centerObstacleView.layer.presentation()!.frame.maxY > view.bounds.midY * 2.5  {
+            centerObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+            centerObstacleView.frame = PointManager.shared.updateCenterObstacleViewRandomPoint(view: view)
+        }
+        if rightObstacleView.layer.presentation()!.frame.maxY > view.bounds.midY * 2.5  {
+            rightObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+            rightObstacleView.frame = PointManager.shared.updateRightObstacleViewRandomPoint(view: view)
+        }
+    }
+
     @objc func onCar(gesture: UIPanGestureRecognizer) {
         let width: CGFloat = 70
         let height: CGFloat = 130
@@ -61,13 +82,18 @@ class GameScreen: UIViewController {
         let y = location.y
         carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: width, height: height)
         
-        UIView.animate(withDuration: 1, delay: 1, options: []) {
-            
-        } completion: { _ in
-            
+        UIView.animate(withDuration: 5, delay: 3, options: [.repeat]) {
+            self.leftObstacleView.frame = PointManager.shared.updateLeftObstacleViewAnimationPoint(view: self.view)
+        }
+        
+        UIView.animate(withDuration: 5, delay: 5, options: [.repeat]) {
+            self.centerObstacleView.frame = PointManager.shared.updateCenterObstacleViewAnimationPoint(view: self.view)
+        }
+        
+        UIView.animate(withDuration: 5, delay: 1, options: [.repeat]) {
+            self.rightObstacleView.frame = PointManager.shared.updateRightObstacleViewAnimationPoint(view: self.view)
         }
 
-        
         UIView.animate(withDuration: 0.8, delay: 0, options: []) {
             self.startLabel.frame = PointManager.shared.updateStartLabelPoint(view: self.view)
         }
@@ -84,21 +110,27 @@ class GameScreen: UIViewController {
             self.markupCenterSecond.frame = PointManager.shared.updateMarkupCenterSecondPoint(view: self.view)
         }
         if carItem.frame.intersects(markupLeftSide.frame)
-        || carItem.frame.intersects(markupRightSide.frame)
-        || carItem.frame.intersects(markupCenterSecond.layer.presentation()!.frame) {
+            || carItem.frame.intersects(markupRightSide.frame)
+            || carItem.frame.intersects(leftObstacleView.layer.presentation()!.frame)
+            || carItem.frame.intersects(centerObstacleView.layer.presentation()!.frame)
+            || carItem.frame.intersects(rightObstacleView.layer.presentation()!.frame) {
             let attributesStart: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
                                                                   .foregroundColor: UIColor.white,
-                                                                  .font: UIFont.systemFont(ofSize: 40,
-                                                                                           weight: .light)]
-            self.startLabel.attributedText = NSMutableAttributedString(string: "YOU LOOSE!",
+                                                                  .font: UIFont(name: "BebasNeue-Regular", size: 40)]
+            self.startLabel.attributedText = NSMutableAttributedString(string: "Y O U   L O O S E !",
                                                                   attributes: attributesStart)
 
             UIView.animate(withDuration: 0.2, delay: 0, options: []) {
                 self.crash.frame = CGRect(x: self.view.bounds.midX - 200, y: self.view.bounds.midX, width: 400, height: 300)
+                self.carItem.image = UIImage(named: "crashCar")
+                self.carItem.frame = CGRect(x: x - width / 2, y: y - height / 2, width: 200, height: 200)
             } completion: { _ in
                 UIView.animate(withDuration: 0.5, delay: 0, options: []) {
-                    self.startLabel.frame = PointManager.shared.startLabelInitial(view: self.view)
+                    self.startLabel.frame = PointManager.shared.updateStartLabelCrashAnimationPoint(view: self.view)
                     self.startLabel.backgroundColor = .red
+                    self.leftObstacleView.alpha = 0
+                    self.centerObstacleView.alpha = 0
+                    self.rightObstacleView.alpha = 0
                 } completion: { _ in
                     UIView.animate(withDuration: 1.5, delay: 0, options: [.autoreverse, .repeat]) {
                         self.startLabel.alpha = 0
@@ -138,6 +170,7 @@ class GameScreen: UIViewController {
         carItem.image = UIImage(named: carData)
         carItem.contentMode = .scaleAspectFit
         carItem.frame = PointManager.shared.carInitial(view: view)
+        carItem.applyShadow(visibility: true)
         view.addSubview(carItem)
         
         crash = UIImageView()
@@ -145,6 +178,34 @@ class GameScreen: UIViewController {
         crash.contentMode = .scaleAspectFit
         crash.frame = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
         view.addSubview(crash)
+    }
+    
+    private func obstaclesSettings() {
+        leftObstacleView = UIImageView()
+        centerObstacleView = UIImageView()
+        rightObstacleView = UIImageView()
+        
+        obstacleViewArray = [leftObstacleView, centerObstacleView, rightObstacleView]
+        
+        obstacleArray = [UIImage(named: "bio")!,
+                         UIImage(named: "tnt")!,
+                         UIImage(named: "car2")!,
+                         UIImage(named: "rock")!,
+                         UIImage(named: "car1")!,
+                         UIImage(named: "car3")!]
+        
+        leftObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+        centerObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+        rightObstacleView.image = obstacleArray[Int.random(in: 0...obstacleArray.count - 1)]
+        
+        for i in 0...obstacleViewArray.count - 1 {
+            obstacleViewArray[i].frame = i == 0 ? PointManager.shared.leftObstacleViewInitial(view: view)
+            : i == 1 ? PointManager.shared.centerObstacleViewInitial(view: view)
+            : PointManager.shared.rightObstacleViewInitial(view: view)
+            obstacleViewArray[i].contentMode = .scaleAspectFit
+            obstacleViewArray[i].applyShadow(visibility: true)
+            view.addSubview(obstacleViewArray[i])
+        }
     }
     
     private func infoViewSettings() {

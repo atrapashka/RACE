@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     private var blackCar: UIButton!
     private var buttonBurger: UIButton!
     private var carArray: [UIButton]!
-    var carModel: String = "car1"
+    var carModel: String = "car0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,187 +48,118 @@ class ViewController: UIViewController {
     }
     
     @objc private func onSwipeRight() {
-        if menuView.frame == locations(position: "menu") {
+        if menuView.frame == PointManager.shared.sideMenuInitial(view: view) {
             UIView.animate(withDuration: 0.3, delay: 0) {
-                self.menuView.frame = self.locations(position: "menuOpen")
+                self.menuView.frame = PointManager.shared.updateSideMenuAnimationPoint(view: self.view)
             }
         } else {
-            menuView.frame = locations(position: "menuOpen")
+            menuView.frame = PointManager.shared.updateSideMenuAnimationPoint(view: self.view)
         }
     }
     
     @objc private func onSwipeLeft() {
-        if menuView.frame == locations(position: "menuOpen") {
+        if menuView.frame == PointManager.shared.updateSideMenuAnimationPoint(view: view) {
             UIView.animate(withDuration: 0.3, delay: 0) {
-                self.menuView.frame = self.locations(position: "menu")
+                self.menuView.frame = PointManager.shared.sideMenuInitial(view: self.view)
             }
         } else {
-            menuView.frame = locations(position: "menu")
+            menuView.frame = PointManager.shared.sideMenuInitial(view: self.view)
         }
     }
     
     @objc private func onBurger() {
-        if menuView.frame == locations(position: "menu") {
+        if menuView.frame == PointManager.shared.sideMenuInitial(view: view) {
             UIView.animate(withDuration: 0.3, delay: 0) {
-                self.menuView.frame = self.locations(position: "menuOpen")
+                self.menuView.frame = PointManager.shared.updateSideMenuAnimationPoint(view: self.view)
             }
         } else {
             UIView.animate(withDuration: 0.3, delay: 0) {
-                self.menuView.frame = self.locations(position: "menu")
+                self.menuView.frame = PointManager.shared.sideMenuInitial(view: self.view)
             }
         }
     }
     
     @objc private func onSimpleCar() {
-        carModel = "car1"
+        addAlert(model: "car0", title: "Red Muscle Car", message: "40 l/10km - it's not the limit")
     }
     
     @objc private func onSportCar() {
-        carModel = "car4"
+        addAlert(model: "car1", title: "Simple Car", message: "Take your drive license a few days ago? Get this")
     }
     
     @objc private func onMiniCar() {
-        carModel = "car2"
+        addAlert(model: "car2", title: "Sleeper", message: "You think your'e fast? I don't think so...")
     }
     
     @objc private func onBlackCar() {
-        carModel = "car3"
+        addAlert(model: "car3", title: "Sport Car", message: "Hold your breath and get ready for insanity...")
     }
     
     private func menuViewSettings() {
         menuView = UIView()
-        menuView.frame = locations(position: "menu")
+        menuView.frame = PointManager.shared.sideMenuInitial(view: view)
         view.addSubview(menuView)
         
         buttonsOnMenuViewSettings()
     }
     
     private func buttonsOnMenuViewSettings() {
-        let carWidth: CGFloat = 70
-        let carHeight: CGFloat = 130
-        
         simpleCar = UIButton()
         sportCar = UIButton()
         miniCar = UIButton()
         blackCar = UIButton()
+        carArray = [simpleCar, sportCar, miniCar, blackCar]
+        let carWidth: CGFloat = 70
+        let carHeight: CGFloat = 130
+
+        let simpleCarFrame = CGRect(x: menuView.bounds.midX - carWidth / 2,
+                                    y: menuView.bounds.minY + carHeight,
+                                    width: carWidth,
+                                    height: carHeight)
         
-//        carArray = [simpleCar, miniCar, blackCar, sportCar]
-//        
-//        let elements = carArray.count - 1
-//        for i in 0...elements {
-//            carArray[i].setImage(UIImage(named: "car\(i)"), for: .normal)
-//            carArray[i].frame = i == 0 ?
-//        }
+        func offset(button: UIButton) -> CGRect {
+            let carOffset: CGRect = button.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
+            return carOffset
+        }
+        
+        let elements = carArray.count - 1
+        for i in 0...elements {
+            carArray[i].setImage(UIImage(named: "car\(i)"), for: .normal)
+            carArray[i].frame = i == 0 ? simpleCarFrame
+            : i == 1 ? offset(button: simpleCar)
+            : i == 2 ? offset(button: sportCar)
+            : offset(button: miniCar)
+            menuView.addSubview(carArray[i])
+        }
         
         simpleCar.addTarget(self, action: #selector(onSimpleCar), for: .touchUpInside)
-        simpleCar.setImage(UIImage(named: "car1"), for: .normal)
-        simpleCar.frame = CGRect(x: menuView.bounds.midX - carWidth / 2,
-                                 y: menuView.bounds.minY + carHeight,
-                                 width: carWidth,
-                                 height: carHeight)
-        
         sportCar.addTarget(self, action: #selector(onSportCar), for: .touchUpInside)
-        sportCar.setImage(UIImage(named: "car4"), for: .normal)
-        sportCar.frame = simpleCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
-        
         miniCar.addTarget(self, action: #selector(onMiniCar), for: .touchUpInside)
-        miniCar.setImage(UIImage(named: "car2"), for: .normal)
-        miniCar.frame = sportCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
-        
         blackCar.addTarget(self, action: #selector(onBlackCar), for: .touchUpInside)
-        blackCar.setImage(UIImage(named: "car3"), for: .normal)
-        blackCar.frame = miniCar.frame.offsetBy(dx: 0, dy: carHeight * 1.2)
-        menuView.addSubview(simpleCar)
-        menuView.addSubview(miniCar)
-        menuView.addSubview(blackCar)
-        menuView.addSubview(sportCar)
     }
     
     private func blurElementsSettings() {
         cornerRadius()
         
-        blurView.frame = locations(position: "blur")
+        blurView.frame = PointManager.shared.blurViewInitial(view: view)
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurView.frame = self.locations(position: "blurAnimation")
+            self.blurView.frame = PointManager.shared.updateBlurViewAnimationPoint(view: self.view)
         }
         
-        blurViewSecond.frame = locations(position: "blurSecond")
+        blurViewSecond.frame = PointManager.shared.blurViewSecondInitial(view: view)
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewSecond.frame = self.locations(position: "blurSecondAnimation")
+            self.blurViewSecond.frame = PointManager.shared.updateBlurViewSecondAnimationPoint(view: self.view)
         }
         
-        blurViewThird.frame = locations(position: "blurThird")
+        blurViewThird.frame = PointManager.shared.blurViewThirdInitial(view: view)
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewThird.frame = self.locations(position: "blurThirdAnimation")
+            self.blurViewThird.frame = PointManager.shared.updateBlurViewThirdAnimationPoint(view: self.view)
         }
         
-        blurViewFourth.frame = locations(position: "blurFourth")
+        blurViewFourth.frame = PointManager.shared.blurViewFourthInitial(view: view)
         UIView.animate(withDuration: 5, delay: 0, options: [.autoreverse, .repeat]) {
-            self.blurViewFourth.frame = self.locations(position: "blurFourthAnimation")
+            self.blurViewFourth.frame = PointManager.shared.updateBlurViewFourthAnimationPoint(view: self.view)
         }
-    }
-    
-    private func locations (position: String) -> CGRect {
-        var result: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
-        let width: CGFloat = 500
-        let height: CGFloat = 500
-        let menuWidth: CGFloat = view.bounds.width / 4.5
-        let menuHeight: CGFloat = view.bounds.height
-        
-        
-        let blurViewLocation = CGRect(x: view.bounds.midX - width,
-                                      y: view.bounds.midY - height * 1.5,
-                                      width: width,
-                                      height: height)
-        let blurViewAnimation = CGRect(x: view.bounds.midX + width / 4,
-                                       y: view.bounds.midY - height * 1.5,
-                                       width: width,
-                                       height: height)
-        let blurViewSecondLocation = CGRect(x: view.bounds.midX + width / 4,
-                                            y: view.bounds.midY - height,
-                                            width: width,
-                                            height: height)
-        let blurViewSecondAnimation = CGRect(x: view.bounds.midX - width,
-                                             y: view.bounds.midY - height,
-                                             width: width,
-                                             height: height)
-        let blurViewThirdLocation = CGRect(x: view.bounds.midX - width,
-                                           y: view.bounds.midY - height / 2,
-                                            width: width,
-                                            height: height)
-        let blurViewThirdAnimation = CGRect(x: view.bounds.midX + width / 4,
-                                            y: view.bounds.midY - height / 2,
-                                             width: width,
-                                             height: height)
-        let blurViewFourthLocation = CGRect(x: view.bounds.midX + width / 4,
-                                            y: UIScreen.main.bounds.midY,
-                                            width: width,
-                                            height: height)
-        let blurViewFourthAnimation = CGRect(x: view.bounds.midX - width,
-                                             y: view.bounds.midY,
-                                             width: width,
-                                             height: height)
-        let menu = CGRect(x: view.bounds.minY - menuWidth,
-                          y: view.bounds.minX,
-                          width: menuWidth,
-                          height: menuHeight)
-        let menuOpen = CGRect(x: view.bounds.minY,
-                              y: view.bounds.minX,
-                              width: menuWidth,
-                              height: menuHeight)
-        
-        result = position == "blur" ? blurViewLocation
-        : position == "blurAnimation" ? blurViewAnimation
-        : position == "blurSecond" ? blurViewSecondLocation
-        : position == "blurSecondAnimation" ? blurViewSecondAnimation
-        : position == "blurThird" ? blurViewThirdLocation
-        : position == "blurThirdAnimation" ? blurViewThirdAnimation
-        : position == "blurFourth" ? blurViewFourthLocation
-        : position == "blurFourthAnimation" ? blurViewFourthAnimation
-        : position == "menu" ? menu
-        : menuOpen
-        
-        return result
     }
     
     private func cornerRadius() {
@@ -245,6 +176,20 @@ class ViewController: UIViewController {
         blurEffectView.frame = mainBlurView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mainBlurView.addSubview(blurEffectView)
+    }
+    
+    private func addAlert(model: String, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.carModel = "car0"
+        }
+        alert.addAction(cancelAction)
+        let okAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+            alert.dismiss(animated: true, completion: nil)
+            self.carModel = model
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
     
     func transitToGameScreen() {

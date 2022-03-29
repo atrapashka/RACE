@@ -5,6 +5,8 @@ import UIKit
 class PointManager {
     static let shared = PointManager()
     
+    let blurWidth: CGFloat = 500
+    let blurHeight: CGFloat = 500
     let markupWidth: CGFloat = 10
     let markupHeight: CGFloat = 500
     let carWidth: CGFloat = 70
@@ -13,35 +15,163 @@ class PointManager {
     let infoViewHeight: CGFloat = 40
     let startLabelWidth: CGFloat = 400
     let startLabelHeight: CGFloat = 45
+    let obstacleWidth: CGFloat = 100
+    let obstacleHeight: CGFloat = 120
     
-    func updatePoint(view: UIView, position: points) -> CGRect {
+    func updatePointStartScreen(view: UIView, position: pointsStartScreen) -> CGRect {
         switch position {
-        case points.markupCenterInitialPoint:
-            return markupCenterInitial(view: view)
-        case points.markupCenterSecondInitialPoint:
-            return markupCenterSecondInitial(view: view)
-        case points.markupLeftInitialPoint:
-            return markupLeftInitial(view: view)
-        case points.markupRightInitialPoint:
-            return markupRightInitial(view: view)
-        case points.infoViewInitialPoint:
-            return infoViewInitial(view: view)
-        case points.startLabelInitialPoint:
-            return startLabelInitial(view: view)
-        case points.infoViewAnimationPointOne:
-            return updateInfoViewPointOne(view: view)
-        case points.infoViewAnimationPointTwo:
-            return updateInfoViewPointTwo(view: view)
-        case points.infoViewAnimationPointThree:
-            return updateInfoViewPointThree(view: view)
-        case points.startLabelAnimationPoint:
-            return updateStartLabelPoint(view: view)
-        case points.markupCenterAnimationPoint:
-            return updateMarkupCenterPoint(view: view)
-        case points.markupCenterSecondAnimationPoint:
-            return updateMarkupCenterSecondPoint(view: view)
+        case pointsStartScreen.blurViewInitialPoint:
+            return blurViewInitial(view: view)
+        case pointsStartScreen.blurViewAnimationPoint:
+            return updateBlurViewAnimationPoint(view: view)
+        case pointsStartScreen.blurViewSecondInitialPoint:
+            return blurViewSecondInitial(view: view)
+        case pointsStartScreen.blurViewSecondAnimationPoint:
+            return updateBlurViewSecondAnimationPoint(view: view)
+        case pointsStartScreen.blurViewThirdInitialPoint:
+            return blurViewThirdInitial(view: view)
+        case pointsStartScreen.blurViewThirdAnimationPoint:
+            return updateBlurViewThirdAnimationPoint(view: view)
+        case pointsStartScreen.blurViewFourthInitialPoint:
+            return blurViewFourthInitial(view: view)
+        case pointsStartScreen.blurViewFourthAnimationPoint:
+            return updateBlurViewFourthAnimationPoint(view: view)
+        case pointsStartScreen.sideMenuInitialPoint:
+            return sideMenuInitial(view: view)
+        case pointsStartScreen.sideMenuAnimationPoint:
+            return updateSideMenuAnimationPoint(view: view)
         }
     }
+    
+    func updatePointGameScreen(view: UIView, position: pointsGameScreen) -> CGRect {
+        switch position {
+        case pointsGameScreen.markupCenterInitialPoint:
+            return markupCenterInitial(view: view)
+        case pointsGameScreen.markupCenterSecondInitialPoint:
+            return markupCenterSecondInitial(view: view)
+        case pointsGameScreen.markupLeftInitialPoint:
+            return markupLeftInitial(view: view)
+        case pointsGameScreen.markupRightInitialPoint:
+            return markupRightInitial(view: view)
+        case pointsGameScreen.infoViewInitialPoint:
+            return infoViewInitial(view: view)
+        case pointsGameScreen.startLabelInitialPoint:
+            return startLabelInitial(view: view)
+        case pointsGameScreen.infoViewAnimationPointOne:
+            return updateInfoViewPointOne(view: view)
+        case pointsGameScreen.infoViewAnimationPointTwo:
+            return updateInfoViewPointTwo(view: view)
+        case pointsGameScreen.infoViewAnimationPointThree:
+            return updateInfoViewPointThree(view: view)
+        case pointsGameScreen.startLabelAnimationPoint:
+            return updateStartLabelPoint(view: view)
+        case pointsGameScreen.markupCenterAnimationPoint:
+            return updateMarkupCenterPoint(view: view)
+        case pointsGameScreen.markupCenterSecondAnimationPoint:
+            return updateMarkupCenterSecondPoint(view: view)
+        case pointsGameScreen.startLabelAnimationCrashPoint:
+            return updateStartLabelCrashAnimationPoint(view: view)
+        }
+    }
+    
+    func updatePointObstacle(view: UIView, position: pointsObstacles) -> CGRect {
+        switch position {
+        case pointsObstacles.leftObstacleViewInitialPoint:
+            return leftObstacleViewInitial(view: view)
+        case pointsObstacles.centerObstacleViewInitialPoint:
+            return centerObstacleViewInitial(view: view)
+        case pointsObstacles.rightObstacleViewInitialPoint:
+            return rightObstacleViewInitial(view: view)
+        case pointsObstacles.leftObstacleViewAnimationPoint:
+            return updateLeftObstacleViewAnimationPoint(view: view)
+        case pointsObstacles.centerObstacleViewAnimationPoint:
+            return updateCenterObstacleViewAnimationPoint(view: view)
+        case pointsObstacles.rightObstacleViewAnimationPoint:
+            return updateRightObstacleViewAnimationPoint(view: view)
+        case pointsObstacles.leftObstacleViewRandomPoint:
+            return updateLeftObstacleViewRandomPoint(view: view)
+        case pointsObstacles.centerObstacleViewRandomPoint:
+            return updateCenterObstacleViewRandomPoint(view: view)
+        case pointsObstacles.rightObsctacleViewRandomPoint:
+            return updateRightObstacleViewRandomPoint(view: view)
+        }
+    }
+    
+    //MARK: - Functions for StartScreen
+    //MARK: -
+  
+    func blurViewInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - blurWidth,
+                      y: view.bounds.midY - blurHeight * 1.5,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func updateBlurViewAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX + blurWidth / 4,
+                      y: view.bounds.midY - blurHeight * 1.5,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func blurViewSecondInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX + blurWidth / 4,
+                      y: view.bounds.midY - blurHeight,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func updateBlurViewSecondAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - blurWidth,
+                      y: view.bounds.midY - blurHeight,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func blurViewThirdInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - blurWidth,
+                      y: view.bounds.midY - blurHeight / 2,
+                       width: blurWidth,
+                       height: blurHeight)
+    }
+    
+    func updateBlurViewThirdAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX + blurWidth / 4,
+                      y: view.bounds.midY - blurHeight / 2,
+                       width: blurWidth,
+                       height: blurHeight)
+    }
+    
+    func blurViewFourthInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX + blurWidth / 4,
+                      y: view.bounds.midY,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func updateBlurViewFourthAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - blurWidth,
+                      y: view.bounds.midY,
+                      width: blurWidth,
+                      height: blurHeight)
+    }
+    
+    func sideMenuInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.minY - view.bounds.width / 4.5,
+                      y: view.bounds.minX,
+                      width: view.bounds.width / 4.5,
+                      height: view.bounds.height)
+    }
+    
+    func updateSideMenuAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.minY,
+                      y: view.bounds.minX,
+                      width: view.bounds.width / 4.5,
+                      height: view.bounds.height)
+    }
+
+    //MARK: - Functions for GameScreen
+    //MARK: -
     
     func markupCenterInitial(view: UIView) -> CGRect {
         return CGRect(x: view.bounds.midX - markupWidth / 2,
@@ -132,5 +262,78 @@ class PointManager {
                       y: view.bounds.maxY + markupHeight * 1.6,
                       width: markupWidth,
                       height: markupHeight * 2)
+    }
+    
+    func updateStartLabelCrashAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - startLabelWidth / 2,
+                      y: view.bounds.minY + startLabelHeight * 3,
+                      width: startLabelWidth,
+                      height: startLabelHeight)
+    }
+    
+    //MARK: - Functions for GameScreen/ObstaclesArray
+    //MARK: -
+    
+    func leftObstacleViewInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.minX,
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+    
+    func centerObstacleViewInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - obstacleWidth / 2,
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+    
+    func rightObstacleViewInitial(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.maxX - obstacleWidth,
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+    
+    func updateLeftObstacleViewAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.minX,
+                      y: view.bounds.maxY + obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+    
+    func updateCenterObstacleViewAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - obstacleWidth / 2,
+                      y: view.bounds.maxY + obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+
+    func updateRightObstacleViewAnimationPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.maxX - obstacleWidth,
+                      y: view.bounds.maxY + obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+
+    func updateLeftObstacleViewRandomPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.minX + CGFloat.random(in: 20...100),
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+
+    func updateCenterObstacleViewRandomPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.midX - obstacleWidth / (Double.random(in: 0.5...2.5)),
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
+    }
+
+    func updateRightObstacleViewRandomPoint(view: UIView) -> CGRect {
+        return CGRect(x: view.bounds.maxX - obstacleWidth * (Double.random(in: 1...2.5)),
+                      y: view.bounds.minY - obstacleHeight * 2,
+                      width: obstacleWidth,
+                      height: obstacleHeight)
     }
 }
