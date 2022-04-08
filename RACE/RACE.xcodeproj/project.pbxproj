@@ -10,6 +10,8 @@
 		973ABAEA27E87A3400068354 /* UIView + Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973ABAE927E87A3400068354 /* UIView + Utilities.swift */; };
 		9752B36B27F303F700410EC7 /* UIColor + Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752B36A27F303F700410EC7 /* UIColor + Utilities.swift */; };
 		9752B36F27F305EF00410EC7 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9752B36E27F305C300410EC7 /* BebasNeue-Regular.ttf */; };
+		9752B37527F320AE00410EC7 /* SettingsScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9752B37427F320AE00410EC7 /* SettingsScreen.storyboard */; };
+		9752B37827F3213E00410EC7 /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9752B37727F3213E00410EC7 /* SettingsScreen.swift */; };
 		975F219C27DA3D97009D953B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F219B27DA3D97009D953B /* AppDelegate.swift */; };
 		975F219E27DA3D97009D953B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F219D27DA3D97009D953B /* SceneDelegate.swift */; };
 		975F21A027DA3D97009D953B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F219F27DA3D97009D953B /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 		975F21A827DA3D98009D953B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 975F21A627DA3D98009D953B /* LaunchScreen.storyboard */; };
 		975F21B027DA3E35009D953B /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975F21AF27DA3E35009D953B /* GameScreen.swift */; };
 		975F21B227DA3E3F009D953B /* GameScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 975F21B127DA3E3F009D953B /* GameScreen.storyboard */; };
+		97E3685E27FF57B400B3CF08 /* ScoreScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E3685D27FF57B400B3CF08 /* ScoreScreen.swift */; };
+		97E3686027FF57BF00B3CF08 /* ScoreScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97E3685F27FF57BF00B3CF08 /* ScoreScreen.storyboard */; };
 		97E8D1F727EB499B00A2B2CB /* PointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E8D1F627EB499B00A2B2CB /* PointManager.swift */; };
 		97E8D1F927EB51D800A2B2CB /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E8D1F827EB51D800A2B2CB /* Points.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +30,8 @@
 		973ABAE927E87A3400068354 /* UIView + Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Utilities.swift"; sourceTree = "<group>"; };
 		9752B36A27F303F700410EC7 /* UIColor + Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Utilities.swift"; sourceTree = "<group>"; };
 		9752B36E27F305C300410EC7 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		9752B37427F320AE00410EC7 /* SettingsScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SettingsScreen.storyboard; sourceTree = "<group>"; };
+		9752B37727F3213E00410EC7 /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
 		975F219827DA3D97009D953B /* RACE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RACE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		975F219B27DA3D97009D953B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		975F219D27DA3D97009D953B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +42,9 @@
 		975F21A927DA3D98009D953B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		975F21AF27DA3E35009D953B /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
 		975F21B127DA3E3F009D953B /* GameScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameScreen.storyboard; sourceTree = "<group>"; };
-		97E8D1F627EB499B00A2B2CB /* PointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PointManager.swift; path = ../PointManager.swift; sourceTree = "<group>"; };
+		97E3685D27FF57B400B3CF08 /* ScoreScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScreen.swift; sourceTree = "<group>"; };
+		97E3685F27FF57BF00B3CF08 /* ScoreScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ScoreScreen.storyboard; sourceTree = "<group>"; };
+		97E8D1F627EB499B00A2B2CB /* PointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointManager.swift; sourceTree = "<group>"; };
 		97E8D1F827EB51D800A2B2CB /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,6 +59,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9752B37027F31FA900410EC7 /* PointManager */ = {
+			isa = PBXGroup;
+			children = (
+				97E8D1F627EB499B00A2B2CB /* PointManager.swift */,
+				97E8D1F827EB51D800A2B2CB /* Points.swift */,
+			);
+			path = PointManager;
+			sourceTree = "<group>";
+		};
+		9752B37127F31FD800410EC7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9752B36E27F305C300410EC7 /* BebasNeue-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9752B37627F320B800410EC7 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9752B37727F3213E00410EC7 /* SettingsScreen.swift */,
+				9752B37427F320AE00410EC7 /* SettingsScreen.storyboard */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
 		975F218F27DA3D97009D953B = {
 			isa = PBXGroup;
 			children = (
@@ -76,10 +110,11 @@
 				975F21A127DA3D97009D953B /* Main.storyboard */,
 				973ABAE927E87A3400068354 /* UIView + Utilities.swift */,
 				9752B36A27F303F700410EC7 /* UIColor + Utilities.swift */,
-				97E8D1F627EB499B00A2B2CB /* PointManager.swift */,
-				97E8D1F827EB51D800A2B2CB /* Points.swift */,
-				9752B36E27F305C300410EC7 /* BebasNeue-Regular.ttf */,
+				97E3686127FF57C700B3CF08 /* ScoreScreen */,
+				9752B37627F320B800410EC7 /* SettingsScreen */,
 				975F21B327DA3E43009D953B /* GameScreen */,
+				9752B37027F31FA900410EC7 /* PointManager */,
+				9752B37127F31FD800410EC7 /* Fonts */,
 				975F21A427DA3D98009D953B /* Assets.xcassets */,
 				975F21A627DA3D98009D953B /* LaunchScreen.storyboard */,
 				975F21A927DA3D98009D953B /* Info.plist */,
@@ -94,6 +129,15 @@
 				975F21B127DA3E3F009D953B /* GameScreen.storyboard */,
 			);
 			path = GameScreen;
+			sourceTree = "<group>";
+		};
+		97E3686127FF57C700B3CF08 /* ScoreScreen */ = {
+			isa = PBXGroup;
+			children = (
+				97E3685D27FF57B400B3CF08 /* ScoreScreen.swift */,
+				97E3685F27FF57BF00B3CF08 /* ScoreScreen.storyboard */,
+			);
+			path = ScoreScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,8 +199,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9752B36F27F305EF00410EC7 /* BebasNeue-Regular.ttf in Resources */,
+				9752B37527F320AE00410EC7 /* SettingsScreen.storyboard in Resources */,
 				975F21A827DA3D98009D953B /* LaunchScreen.storyboard in Resources */,
 				975F21A527DA3D98009D953B /* Assets.xcassets in Resources */,
+				97E3686027FF57BF00B3CF08 /* ScoreScreen.storyboard in Resources */,
 				975F21B227DA3E3F009D953B /* GameScreen.storyboard in Resources */,
 				975F21A327DA3D97009D953B /* Main.storyboard in Resources */,
 			);
@@ -170,10 +216,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				9752B36B27F303F700410EC7 /* UIColor + Utilities.swift in Sources */,
+				9752B37827F3213E00410EC7 /* SettingsScreen.swift in Sources */,
 				975F21A027DA3D97009D953B /* ViewController.swift in Sources */,
 				97E8D1F727EB499B00A2B2CB /* PointManager.swift in Sources */,
 				973ABAEA27E87A3400068354 /* UIView + Utilities.swift in Sources */,
 				975F21B027DA3E35009D953B /* GameScreen.swift in Sources */,
+				97E3685E27FF57B400B3CF08 /* ScoreScreen.swift in Sources */,
 				975F219C27DA3D97009D953B /* AppDelegate.swift in Sources */,
 				97E8D1F927EB51D800A2B2CB /* Points.swift in Sources */,
 				975F219E27DA3D97009D953B /* SceneDelegate.swift in Sources */,

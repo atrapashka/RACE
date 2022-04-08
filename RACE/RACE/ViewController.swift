@@ -6,8 +6,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var blurViewSecond: UIView!
     @IBOutlet weak var blurViewThird: UIView!
     @IBOutlet weak var blurViewFourth: UIView!
-    private var menuView: UIView!
     @IBOutlet weak var mainBlurView: UIImageView!
+    private var menuView: UIView!
     private var simpleCar: UIButton!
     private var miniCar: UIButton!
     private var sportCar: UIButton!
@@ -43,8 +43,16 @@ class ViewController: UIViewController {
         blurElementsSettings()
     }
     
+    @IBAction func onSettingsButton(_ sender: Any) {
+        transitToSettingsScreen()
+    }
+    
     @IBAction func onBurnoutButon(_ sender: Any) {
         transitToGameScreen()
+    }
+    
+    @IBAction func onBestScoreButton(_ sender: Any) {
+        transitToScoreScreen()
     }
     
     @objc private func onSwipeRight() {
@@ -198,6 +206,18 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
 
         vc.carData = carModel
+    }
+    
+    func transitToSettingsScreen() {
+        let storyboard = UIStoryboard.init(name: "SettingsScreen", bundle: Bundle.main)
+        let vc = storyboard.instantiateInitialViewController() as! SettingsScreen
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func transitToScoreScreen() {
+        let storyboard = UIStoryboard.init(name: "ScoreScreen", bundle: Bundle.main)
+        let vc = storyboard.instantiateInitialViewController() as! ScoreScreen
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

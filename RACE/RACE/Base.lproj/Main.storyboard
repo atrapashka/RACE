@@ -54,12 +54,18 @@
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="BEST SCORE"/>
+                                <connections>
+                                    <action selector="onBestScoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gmE-hc-5Z8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2kC-1E-jh2">
                                 <rect key="frame" x="100" y="454" width="214" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="SETTINGS"/>
+                                <connections>
+                                    <action selector="onSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lWA-tm-d4o"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcA-YQ-yq2">
                                 <rect key="frame" x="100" y="510" width="214" height="36"/>
