@@ -2,21 +2,21 @@
   What is all about?
 </h1>
 
-RACE - my graduation project of courses in TMS <img src="https://static.tildacdn.com/tild6335-6464-4433-b637-303934383839/zoub1wL7Zo0-3.jpg" width="35">
+RACE 🏎️ - my graduation project of courses in TMS <img src="https://static.tildacdn.com/tild6335-6464-4433-b637-303934383839/zoub1wL7Zo0-3.jpg" width="35">
 
 It's a simple racing game with some sort of humor and beautiful design and animations.
 
 There's some special things about it:
 - I use my favourite game from chilhood for inspiriation - AirStrike, thats why RACE looks in similar way
-- There is some easter eggs in this app and you can try to find them
+- There is some easter eggs 🥚 in this app and you can try to find them
 - I've spent a lot of time to make animations in RACE smooth and beautiful
-- It's my first big project, so RACE has a special place in my heart
+- It's my first big project, so RACE has a special place in my heart ❤️
 - I keep working on this project
 - Planning to add: user autorization, language localization, CoreData, Audio
 - Planning to improve: code, animations, UI/UX, source images of objects, game difficulty
 
 <h1 align="center">
-  Technology stack
+  Technology stack 💻
 </h1>
 
 - MVC
@@ -30,16 +30,23 @@ There's some special things about it:
 </h1>
 
 I'll use screencasts for a little presentation of my project:
-- Start Screen:
-<img src="https://drive.google.com/file/d/1Xj7dS6-4t5XYv9ARZclER8xFT2ku5xPl/view.gif">
-  - Choosing car:
-- Game Screen:
-- Settings Screen:
-  - Example of settings
-- Score Screen
+- Start Screen with Choosing Car and Game Screen: 
+  <div>
+    <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0891.gif" width="150">
+    &nbsp&nbsp
+    <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0892.gif" width="150">
+    &nbsp&nbsp
+    <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0893.gif" width="150">
+  </div>
+- Settings Screen with Example of Settings and Score Screen:
+  <div>
+    <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0894.gif" width="150">
+    &nbsp&nbsp
+    <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0895.gif" width="150">
+  </div>
 
 <h1 align="center">
-  Thank you for finishing this README
+  Thank you for finishing this README 🔚
 </h1>
 
 Please text me <a href="https://www.t.me/atrapashka">
