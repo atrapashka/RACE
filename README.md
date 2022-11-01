@@ -9,9 +9,8 @@ It's a simple racing game with some sort of humor and beautiful design and anima
 There's some special things about it:
 - I use my favourite game from chilhood for inspiriation - AirStrike, thats why RACE looks in similar way
 - There is some easter eggs 🥚 in this app and you can try to find them
-- I've spent a lot of time to make animations in RACE smooth and beautiful
+- I've spent a lot of time to make animations in RACE looks smooth and beautiful
 - It's my first big project, so RACE has a special place in my heart ❤️
-- I keep working on this project
 - Planning to add: user autorization, language localization, CoreData, Audio
 - Planning to improve: code, animations, UI/UX, source images of objects, game difficulty
 
@@ -23,7 +22,7 @@ There's some special things about it:
 - UIKit
 - Storyboard for Navigation between screens
 - FileManager, UserDefaults, GestureRecognizers
-- Extensions, singletones and etc.
+- Extensions, Singletones and etc.
 
 <h1 align="center">
   How it looks
@@ -50,7 +49,7 @@ I'll use screencasts for a little presentation of my project:
 </h1>
 
 Please text me <a href="https://www.t.me/atrapashka">
-    <img src="https://img.shields.io/badge/Telegram-blue?style=logo=telegram&logoColor=white" alt="Telegram Badge"/></a> if you have ideas for improving RACE or if you have come questions to me.
+    <img src="https://img.shields.io/badge/Telegram-blue?style=logo=telegram&logoColor=white" alt="Telegram Badge"/></a> if you have ideas for improving RACE or if you have some questions to me.
 <div align="center">
 <img src="https://media.giphy.com/media/fxI1G5PNC5esyNlIUs/giphy.gif" width="100">
 </div>
