@@ -30,7 +30,7 @@ There's some special things about it:
 
 I'll use screencasts for a little presentation of my project:
 - Start Screen with Choosing Car and Game Screen: 
-  <div>
+  <div align="center">
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0891.gif" width="150">
     &nbsp&nbsp
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0892.gif" width="150">
@@ -38,7 +38,7 @@ I'll use screencasts for a little presentation of my project:
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0893.gif" width="150">
   </div>
 - Settings Screen with Example of Settings and Score Screen:
-  <div>
+  <div align="center">
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0894.gif" width="150">
     &nbsp&nbsp
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0895.gif" width="150">
