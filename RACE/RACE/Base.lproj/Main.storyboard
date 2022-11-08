@@ -53,7 +53,9 @@
                                 <rect key="frame" x="100" y="398" width="214" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="BEST SCORE"/>
+                                <state key="normal" title="BEST SCORE">
+                                    <color key="titleColor" systemColor="systemIndigoColor"/>
+                                </state>
                                 <connections>
                                     <action selector="onBestScoreButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gmE-hc-5Z8"/>
                                 </connections>
@@ -62,7 +64,9 @@
                                 <rect key="frame" x="100" y="454" width="214" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="SETTINGS"/>
+                                <state key="normal" title="SETTINGS">
+                                    <color key="titleColor" systemColor="systemIndigoColor"/>
+                                </state>
                                 <connections>
                                     <action selector="onSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lWA-tm-d4o"/>
                                 </connections>
@@ -71,17 +75,19 @@
                                 <rect key="frame" x="100" y="510" width="214" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="ABOUT"/>
+                                <state key="normal" title="ABOUT">
+                                    <color key="titleColor" systemColor="systemIndigoColor"/>
+                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCf-Ud-JTu">
-                                <rect key="frame" x="100" y="746" width="214" height="40"/>
+                                <rect key="frame" x="100" y="716" width="214" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="yaX-5v-Qjc"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="B U R N O U T ◉">
-                                    <color key="titleColor" systemColor="labelColor"/>
+                                    <color key="titleColor" systemColor="systemPinkColor"/>
                                 </state>
                                 <connections>
                                     <action selector="onBurnoutButon:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7cf-hz-WvA"/>
@@ -95,7 +101,7 @@
                             <constraint firstItem="NcA-YQ-yq2" firstAttribute="top" secondItem="2kC-1E-jh2" secondAttribute="bottom" constant="20" id="6YG-Xi-xYj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="C5f-bm-2Ib" secondAttribute="trailing" constant="100" id="6az-so-GRK"/>
                             <constraint firstItem="C5f-bm-2Ib" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="6to-md-CFo"/>
-                            <constraint firstItem="HCf-Ud-JTu" firstAttribute="top" secondItem="NcA-YQ-yq2" secondAttribute="bottom" constant="200" id="9nD-pK-8dJ"/>
+                            <constraint firstItem="HCf-Ud-JTu" firstAttribute="top" secondItem="NcA-YQ-yq2" secondAttribute="bottom" constant="170" id="9nD-pK-8dJ"/>
                             <constraint firstItem="AuT-gg-E3l" firstAttribute="trailing" secondItem="C5f-bm-2Ib" secondAttribute="trailing" id="BiP-J1-VSm"/>
                             <constraint firstItem="HCf-Ud-JTu" firstAttribute="trailing" secondItem="C5f-bm-2Ib" secondAttribute="trailing" id="F0L-z2-6Ur"/>
                             <constraint firstItem="HCf-Ud-JTu" firstAttribute="leading" secondItem="C5f-bm-2Ib" secondAttribute="leading" id="Tu8-LG-PPd"/>
@@ -139,11 +145,11 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
