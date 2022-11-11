@@ -28,7 +28,7 @@ There's some special things about it:
   How it looks
 </h1>
 
-I'll use screencasts for a little presentation of my project:
+I'll use screencasts for a little presentation of my project, so it may loading a bit long:
 - Start Screen with Choosing Car and Game Screen: 
   <div>
     <img src="https://github.com/atrapashka/HelpRepo/blob/main/IMG_0891.gif" width="150">
