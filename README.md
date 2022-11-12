@@ -22,7 +22,7 @@ There's some special things about it:
 - UIKit
 - Storyboard for Navigation between screens
 - FileManager, UserDefaults, GestureRecognizers
-- Extensions, Singletones and etc.
+- Extensions, Singletones and etc
 
 <h1 align="center">
   How it looks
